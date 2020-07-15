@@ -1,0 +1,19 @@
+npm init
+npm install
+
+npm i express path compression helmet body-parser mongodb dotenv --save
+npm install --save cors
+npm i email-existence --save
+npm i qrcode --save
+npm i nodemailer fs handlebars nodemailer-smtp-transport --save
+
+//deploying//
+heroku login
+git init
+heroku git:remote -a ecficiom
+
+//updatable//
+git add .
+git commit -am "test1"
+git push heroku master
+heroku config:set NODE_ENV='production'
