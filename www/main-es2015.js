@@ -904,44 +904,84 @@ let IttopService = class IttopService {
             yield Storage.clear();
         });
     }
+    /* getUsers(){
+       return this.http.post('http://localhost:8080/user/getUsers',{});
+     }
+     getUser(obj){
+       return this.http.post('http://localhost:8080/user/getUser',obj);
+     }
+     addUser(obj){
+       return this.http.post('http://localhost:8080/user/addUser',obj);
+     }
+     scanUser1(obj){
+       return this.http.post('http://localhost:8080/user/scanUser1',obj);
+     }
+     scanUser2(obj){
+       return this.http.post('http://localhost:8080/user/scanUser2',obj);
+     }
+     updateMarks1(obj){
+       return this.http.post('http://localhost:8080/user/updateMarks1',obj);
+     }
+     updateMarks2(obj){
+       return this.http.post('http://localhost:8080/user/updateMarks2',obj);
+     }
+     getEvents(){
+       return this.http.post('http://localhost:8080/user/getEvents',{});
+     }
+     getEvent(obj){
+       return this.http.post('http://localhost:8080/user/getEvent',obj);
+     }
+     getCount(obj){
+       return this.http.post('http://localhost:8080/user/getCount',obj);
+     }
+     validEmail(obj){
+       return this.http.post('http://localhost:8080/user/validEmail',obj);
+     }
+     getPass(obj){
+       return this.http.post('http://localhost:8080/user/getPass',obj);
+     }
+     getRegEvent(obj){
+       return this.http.post('http://localhost:8080/user/getRegEvent',obj);
+     }*/
+    //deploy
     getUsers() {
-        return this.http.post('http://localhost:8080/user/getUsers', {});
+        return this.http.post('https://ecficiom.herokuapp.com/user/getUsers', {});
     }
     getUser(obj) {
-        return this.http.post('http://localhost:8080/user/getUser', obj);
+        return this.http.post('https://ecficiom.herokuapp.com/user/getUser', obj);
     }
     addUser(obj) {
-        return this.http.post('http://localhost:8080/user/addUser', obj);
+        return this.http.post('https://ecficiom.herokuapp.com/user/addUser', obj);
     }
     scanUser1(obj) {
-        return this.http.post('http://localhost:8080/user/scanUser1', obj);
+        return this.http.post('https://ecficiom.herokuapp.com/user/scanUser1', obj);
     }
     scanUser2(obj) {
-        return this.http.post('http://localhost:8080/user/scanUser2', obj);
+        return this.http.post('https://ecficiom.herokuapp.com/user/scanUser2', obj);
     }
     updateMarks1(obj) {
-        return this.http.post('http://localhost:8080/user/updateMarks1', obj);
+        return this.http.post('https://ecficiom.herokuapp.com/user/updateMarks1', obj);
     }
     updateMarks2(obj) {
-        return this.http.post('http://localhost:8080/user/updateMarks2', obj);
+        return this.http.post('https://ecficiom.herokuapp.com/user/updateMarks2', obj);
     }
     getEvents() {
-        return this.http.post('http://localhost:8080/user/getEvents', {});
+        return this.http.post('https://ecficiom.herokuapp.com/user/getEvents', {});
     }
     getEvent(obj) {
-        return this.http.post('http://localhost:8080/user/getEvent', obj);
+        return this.http.post('https://ecficiom.herokuapp.com/user/getEvent', obj);
     }
     getCount(obj) {
-        return this.http.post('http://localhost:8080/user/getCount', obj);
+        return this.http.post('https://ecficiom.herokuapp.com/user/getCount', obj);
     }
     validEmail(obj) {
-        return this.http.post('http://localhost:8080/user/validEmail', obj);
+        return this.http.post('https://ecficiom.herokuapp.com/user/validEmail', obj);
     }
     getPass(obj) {
-        return this.http.post('http://localhost:8080/user/getPass', obj);
+        return this.http.post('https://ecficiom.herokuapp.com/user/getPass', obj);
     }
     getRegEvent(obj) {
-        return this.http.post('http://localhost:8080/user/getRegEvent', obj);
+        return this.http.post('https://ecficiom.herokuapp.com/user/getRegEvent', obj);
     }
 };
 IttopService.ctorParameters = () => [
