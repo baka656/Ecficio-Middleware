@@ -1027,111 +1027,70 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             }, _callee8);
           }));
         }
-        /*getUsers(){
-          return this.http.post('http://localhost:8080/user/getUsers',{});
-        }
-        getUser(obj){
-          return this.http.post('http://localhost:8080/user/getUser',obj);
-        }
-        addUser(obj){
-          return this.http.post('http://localhost:8080/user/addUser',obj);
-        }
-        scanUser1(obj){
-          return this.http.post('http://localhost:8080/user/scanUser1',obj);
-        }
-        scanUser2(obj){
-          return this.http.post('http://localhost:8080/user/scanUser2',obj);
-        }
-        updateMarks1(obj){
-          return this.http.post('http://localhost:8080/user/updateMarks1',obj);
-        }
-        updateMarks2(obj){
-          return this.http.post('http://localhost:8080/user/updateMarks2',obj);
-        }
-        getEvents(){
-          return this.http.post('http://localhost:8080/user/getEvents',{});
-        }
-        getEvent(obj){
-          return this.http.post('http://localhost:8080/user/getEvent',obj);
-        }
-        getCount(obj){
-          return this.http.post('http://localhost:8080/user/getCount',obj);
-        }
-        validEmail(obj){
-          return this.http.post('http://localhost:8080/user/validEmail',obj);
-        }
-        getPass(obj){
-          return this.http.post('http://localhost:8080/user/getPass',obj);
-        }
-        getRegEvent(obj){
-          return this.http.post('http://localhost:8080/user/getRegEvent',obj);
-        }*/
-        //deploy
-
       }, {
         key: "getUsers",
         value: function getUsers() {
-          return this.http.post('/user/getUsers', {});
+          return this.http.post('http://localhost:8080/user/getUsers', {});
         }
       }, {
         key: "getUser",
         value: function getUser(obj) {
-          return this.http.post('/user/getUser', obj);
+          return this.http.post('http://localhost:8080/user/getUser', obj);
         }
       }, {
         key: "addUser",
         value: function addUser(obj) {
-          return this.http.post('/user/addUser', obj);
+          return this.http.post('http://localhost:8080/user/addUser', obj);
         }
       }, {
         key: "scanUser1",
         value: function scanUser1(obj) {
-          return this.http.post('/user/scanUser1', obj);
+          return this.http.post('http://localhost:8080/user/scanUser1', obj);
         }
       }, {
         key: "scanUser2",
         value: function scanUser2(obj) {
-          return this.http.post('/user/scanUser2', obj);
+          return this.http.post('http://localhost:8080/user/scanUser2', obj);
         }
       }, {
         key: "updateMarks1",
         value: function updateMarks1(obj) {
-          return this.http.post('/user/updateMarks1', obj);
+          return this.http.post('http://localhost:8080/user/updateMarks1', obj);
         }
       }, {
         key: "updateMarks2",
         value: function updateMarks2(obj) {
-          return this.http.post('/user/updateMarks2', obj);
+          return this.http.post('http://localhost:8080/user/updateMarks2', obj);
         }
       }, {
         key: "getEvents",
         value: function getEvents() {
-          return this.http.post('/user/getEvents', {});
+          return this.http.post('http://localhost:8080/user/getEvents', {});
         }
       }, {
         key: "getEvent",
         value: function getEvent(obj) {
-          return this.http.post('/user/getEvent', obj);
+          return this.http.post('http://localhost:8080/user/getEvent', obj);
         }
       }, {
         key: "getCount",
         value: function getCount(obj) {
-          return this.http.post('/user/getCount', obj);
+          return this.http.post('http://localhost:8080/user/getCount', obj);
         }
       }, {
         key: "validEmail",
         value: function validEmail(obj) {
-          return this.http.post('/user/validEmail', obj);
+          return this.http.post('http://localhost:8080/user/validEmail', obj);
         }
       }, {
         key: "getPass",
         value: function getPass(obj) {
-          return this.http.post('/user/getPass', obj);
+          return this.http.post('http://localhost:8080/user/getPass', obj);
         }
       }, {
         key: "getRegEvent",
         value: function getRegEvent(obj) {
-          return this.http.post('/user/getRegEvent', obj);
+          return this.http.post('http://localhost:8080/user/getRegEvent', obj);
         }
       }]);
 
