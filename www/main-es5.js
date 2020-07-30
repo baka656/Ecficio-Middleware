@@ -614,6 +614,18 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     var _ionic_native_barcode_scanner_ngx__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
     /*! @ionic-native/barcode-scanner/ngx */
     "./node_modules/@ionic-native/barcode-scanner/__ivy_ngcc__/ngx/index.js");
+    /* harmony import */
+
+
+    var _ittop_service__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(
+    /*! ./ittop.service */
+    "./src/app/ittop.service.ts");
+    /* harmony import */
+
+
+    var _window_ref_service__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(
+    /*! ./window-ref.service */
+    "./src/app/window-ref.service.ts");
 
     var AppModule = function AppModule() {
       _classCallCheck(this, AppModule);
@@ -626,7 +638,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       providers: [_ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_6__["StatusBar"], _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_5__["SplashScreen"], {
         provide: _angular_router__WEBPACK_IMPORTED_MODULE_3__["RouteReuseStrategy"],
         useClass: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonicRouteStrategy"]
-      }, _ionic_native_barcode_scanner_ngx__WEBPACK_IMPORTED_MODULE_10__["BarcodeScanner"]],
+      }, _ionic_native_barcode_scanner_ngx__WEBPACK_IMPORTED_MODULE_10__["BarcodeScanner"], _ittop_service__WEBPACK_IMPORTED_MODULE_11__["IttopService"], _window_ref_service__WEBPACK_IMPORTED_MODULE_12__["WindowRefService"]],
       bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_7__["AppComponent"]]
     })], AppModule);
     /***/
@@ -889,7 +901,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       function IttopService(http) {
         _classCallCheck(this, IttopService);
 
-        this.http = http;
+        this.http = http; //mlink:string="http://localhost:8080";
+        //mlink:string="https://ecficiom.herokuapp.com";
+
+        this.mlink = "";
       } //Capacitor Storage Methods
 
 
@@ -1026,112 +1041,77 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
               }
             }, _callee8);
           }));
-        }
-        /* getUsers(){
-           return this.http.post('http://localhost:8080/user/getUsers',{});
-         }
-         getUser(obj){
-           return this.http.post('http://localhost:8080/user/getUser',obj);
-         }
-         addUser(obj){
-           return this.http.post('http://localhost:8080/user/addUser',obj);
-         }
-         scanUser1(obj){
-           return this.http.post('http://localhost:8080/user/scanUser1',obj);
-         }
-         scanUser2(obj){
-           return this.http.post('http://localhost:8080/user/scanUser2',obj);
-         }
-         updateMarks1(obj){
-           return this.http.post('http://localhost:8080/user/updateMarks1',obj);
-         }
-         updateMarks2(obj){
-           return this.http.post('http://localhost:8080/user/updateMarks2',obj);
-         }
-         getEvents(){
-           return this.http.post('http://localhost:8080/user/getEvents',{});
-         }
-         getEvent(obj){
-           return this.http.post('http://localhost:8080/user/getEvent',obj);
-         }
-         getCount(obj){
-           return this.http.post('http://localhost:8080/user/getCount',obj);
-         }
-         validEmail(obj){
-           return this.http.post('http://localhost:8080/user/validEmail',obj);
-         }
-         getPass(obj){
-           return this.http.post('http://localhost:8080/user/getPass',obj);
-         }
-         getRegEvent(obj){
-           return this.http.post('http://localhost:8080/user/getRegEvent',obj);
-         }*/
-        //deploy
+        } //deploy
 
       }, {
         key: "getUsers",
         value: function getUsers() {
-          return this.http.post('https://ecficiom.herokuapp.com/user/getUsers', {});
+          return this.http.post(this.mlink + '/user/getUsers', {});
         }
       }, {
         key: "getUser",
         value: function getUser(obj) {
-          return this.http.post('https://ecficiom.herokuapp.com/user/getUser', obj);
+          return this.http.post(this.mlink + '/user/getUser', obj);
         }
       }, {
         key: "addUser",
         value: function addUser(obj) {
-          return this.http.post('https://ecficiom.herokuapp.com/user/addUser', obj);
+          return this.http.post(this.mlink + '/user/addUser', obj);
         }
       }, {
         key: "scanUser1",
         value: function scanUser1(obj) {
-          return this.http.post('https://ecficiom.herokuapp.com/user/scanUser1', obj);
+          return this.http.post(this.mlink + '/user/scanUser1', obj);
         }
       }, {
         key: "scanUser2",
         value: function scanUser2(obj) {
-          return this.http.post('https://ecficiom.herokuapp.com/user/scanUser2', obj);
+          return this.http.post(this.mlink + '/user/scanUser2', obj);
         }
       }, {
         key: "updateMarks1",
         value: function updateMarks1(obj) {
-          return this.http.post('https://ecficiom.herokuapp.com/user/updateMarks1', obj);
+          return this.http.post(this.mlink + '/user/updateMarks1', obj);
         }
       }, {
         key: "updateMarks2",
         value: function updateMarks2(obj) {
-          return this.http.post('https://ecficiom.herokuapp.com/user/updateMarks2', obj);
+          return this.http.post(this.mlink + '/user/updateMarks2', obj);
         }
       }, {
         key: "getEvents",
         value: function getEvents() {
-          return this.http.post('https://ecficiom.herokuapp.com/user/getEvents', {});
+          return this.http.post(this.mlink + '/user/getEvents', {});
         }
       }, {
         key: "getEvent",
         value: function getEvent(obj) {
-          return this.http.post('https://ecficiom.herokuapp.com/user/getEvent', obj);
+          return this.http.post(this.mlink + '/user/getEvent', obj);
         }
       }, {
         key: "getCount",
         value: function getCount(obj) {
-          return this.http.post('https://ecficiom.herokuapp.com/user/getCount', obj);
+          return this.http.post(this.mlink + '/user/getCount', obj);
         }
       }, {
         key: "validEmail",
         value: function validEmail(obj) {
-          return this.http.post('https://ecficiom.herokuapp.com/user/validEmail', obj);
+          return this.http.post(this.mlink + '/user/validEmail', obj);
         }
       }, {
         key: "getPass",
         value: function getPass(obj) {
-          return this.http.post('https://ecficiom.herokuapp.com/user/getPass', obj);
+          return this.http.post(this.mlink + '/user/getPass', obj);
         }
       }, {
         key: "getRegEvent",
         value: function getRegEvent(obj) {
-          return this.http.post('https://ecficiom.herokuapp.com/user/getRegEvent', obj);
+          return this.http.post(this.mlink + '/user/getRegEvent', obj);
+        }
+      }, {
+        key: "razorpayOrder",
+        value: function razorpayOrder() {
+          return this.http.post(this.mlink + '/user/razorpayOrder', {});
         }
       }]);
 
@@ -1147,6 +1127,62 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     IttopService = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
       providedIn: 'root'
     })], IttopService);
+    /***/
+  },
+
+  /***/
+  "./src/app/window-ref.service.ts":
+  /*!***************************************!*\
+    !*** ./src/app/window-ref.service.ts ***!
+    \***************************************/
+
+  /*! exports provided: WindowRefService */
+
+  /***/
+  function srcAppWindowRefServiceTs(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony export (binding) */
+
+
+    __webpack_require__.d(__webpack_exports__, "WindowRefService", function () {
+      return WindowRefService;
+    });
+    /* harmony import */
+
+
+    var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+    /*! tslib */
+    "./node_modules/tslib/tslib.es6.js");
+    /* harmony import */
+
+
+    var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+    /*! @angular/core */
+    "./node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
+
+    function _window() {
+      // return the global native browser window object
+      return window;
+    }
+
+    var WindowRefService = /*#__PURE__*/function () {
+      function WindowRefService() {
+        _classCallCheck(this, WindowRefService);
+      }
+
+      _createClass(WindowRefService, [{
+        key: "nativeWindow",
+        get: function get() {
+          return _window();
+        }
+      }]);
+
+      return WindowRefService;
+    }();
+
+    WindowRefService = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])()], WindowRefService);
     /***/
   },
 

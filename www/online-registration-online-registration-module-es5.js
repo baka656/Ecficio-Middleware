@@ -274,26 +274,30 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     var _angular_router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
     /*! @angular/router */
     "./node_modules/@angular/router/__ivy_ngcc__/fesm2015/router.js");
+    /* harmony import */
+
+
+    var _window_ref_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+    /*! ../window-ref.service */
+    "./src/app/window-ref.service.ts");
 
     var OnlineRegistrationPage =
     /*#__PURE__*/
     //razor_secret=HRrxX8Rhb3b3K3Wurle0UHkf
     function () {
-      function OnlineRegistrationPage(us, alrt, fb, router) {
+      function OnlineRegistrationPage(us, alrt, fb, router, winRef) {
         _classCallCheck(this, OnlineRegistrationPage);
 
         this.us = us;
         this.alrt = alrt;
         this.fb = fb;
         this.router = router;
+        this.winRef = winRef;
         this.submitted = false;
         this.err = "";
         this.userDetails = {};
-        this.paymentAmount = 10;
         this.currency = "INR";
-        this.currencyIcon = "₹"; //razor_key="HRrxX8Rhb3b3K3Wurle0UHkf";
-
-        this.razor_key = "rzp_test_tKmGlTQpVe7iyL";
+        this.currencyIcon = "₹";
       }
 
       _createClass(OnlineRegistrationPage, [{
@@ -306,11 +310,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             college: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].required],
             phone: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].minLength(10), _angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].maxLength(10)]]
           });
-        }
-      }, {
-        key: "call",
-        value: function call() {
-          console.log(this.paymentAmount);
         }
       }, {
         key: "createCode",
@@ -331,7 +330,15 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             if (data == true) {
               _this.userDetails.email = _this.registrationForm.value.email;
 
-              _this.paywithRazor();
+              _this.us.razorpayOrder().subscribe(function (data) {
+                console.log(data);
+
+                if (data['message'] == 'success') {
+                  _this.paywithRazor(data);
+                } else {
+                  alert('some error occured');
+                }
+              });
             } else {
               alert('enter valid email address');
             }
@@ -339,27 +346,30 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         }
       }, {
         key: "paywithRazor",
-        value: function paywithRazor() {
+        value: function paywithRazor(data) {
+          var _this2 = this;
+
           this.userDetails.name = this.registrationForm.value.name;
           this.userDetails.email = this.registrationForm.value.email;
           this.userDetails.phone = this.registrationForm.value.phone;
           this.userDetails.college = this.registrationForm.value.college;
           this.userDetails.rollno = this.registrationForm.value.rollno;
-          var paymentAmount = this.paymentAmount;
           var options = {
+            order_id: data['order']['id'],
             description: 'Payment',
             image: 'https://res.cloudinary.com/dmm4awbwm/image/upload/v1591517273/favicon_pbwxru.jpg',
             currency: this.currency,
-            key: this.razor_key,
-            amount: this.paymentAmount,
+            key: data['key'],
+            amount: Number(data['amount']),
             name: 'Ecficio',
+            handler: function handler(response) {},
             prefill: {
               email: this.registrationForm.value.email,
               contact: this.registrationForm.value.phone,
               name: this.registrationForm.value.name
             },
             theme: {
-              color: '#F37254'
+              color: '#F0D551'
             },
             modal: {
               ondismiss: function ondismiss() {
@@ -368,14 +378,14 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             }
           };
 
-          var successCallback = function successCallback(payment_id) {
-            var _this2 = this;
+          options.handler = function (response) {
+            console.log(response);
+            _this2.userDetails.tid = response.razorpay_payment_id;
+            _this2.userDetails.paymentAmount = Number(data['amount']);
+            _this2.userDetails.paid = true;
+            _this2.userDetails.timestamp = new Date();
 
-            this.userDetails.tid = payment_id;
-            this.userDetails.paymentAmount = paymentAmount;
-            this.userDetails.paid = true;
-            this.userDetails.timestamp = new Date();
-            this.us.addUser(this.userDetails).subscribe(function (data) {
+            _this2.us.addUser(_this2.userDetails).subscribe(function (data) {
               if (data['message'] == 'already exists') {
                 alert("email already registered");
               } else if (data['message'] == 'success') {
@@ -385,14 +395,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
               } else {
                 alert('some error occured');
               }
-            }); //alert('payment_id: ' + payment_id);
+            });
           };
 
-          var cancelCallback = function cancelCallback(error) {
-            alert(error.description + ' (Error ' + error.code + ')');
-          };
-
-          RazorpayCheckout.open(options, successCallback, cancelCallback);
+          var rzpy = new this.winRef.nativeWindow.Razorpay(options);
+          rzpy.open();
         }
       }, {
         key: "f",
@@ -413,6 +420,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         type: _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormBuilder"]
       }, {
         type: _angular_router__WEBPACK_IMPORTED_MODULE_5__["Router"]
+      }, {
+        type: _window_ref_service__WEBPACK_IMPORTED_MODULE_6__["WindowRefService"]
       }];
     };
 

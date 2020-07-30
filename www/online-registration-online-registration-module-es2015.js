@@ -149,6 +149,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ittop_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../ittop.service */ "./src/app/ittop.service.ts");
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/__ivy_ngcc__/fesm2015/forms.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/__ivy_ngcc__/fesm2015/router.js");
+/* harmony import */ var _window_ref_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../window-ref.service */ "./src/app/window-ref.service.ts");
+
 
 
 
@@ -158,19 +160,17 @@ __webpack_require__.r(__webpack_exports__);
 let OnlineRegistrationPage = 
 //razor_secret=HRrxX8Rhb3b3K3Wurle0UHkf
 class OnlineRegistrationPage {
-    constructor(us, alrt, fb, router) {
+    constructor(us, alrt, fb, router, winRef) {
         this.us = us;
         this.alrt = alrt;
         this.fb = fb;
         this.router = router;
+        this.winRef = winRef;
         this.submitted = false;
         this.err = "";
         this.userDetails = {};
-        this.paymentAmount = 10;
         this.currency = "INR";
         this.currencyIcon = "₹";
-        //razor_key="HRrxX8Rhb3b3K3Wurle0UHkf";
-        this.razor_key = "rzp_test_tKmGlTQpVe7iyL";
     }
     ngOnInit() {
         this.registrationForm = this.fb.group({
@@ -187,9 +187,6 @@ class OnlineRegistrationPage {
     get f() {
         return this.registrationForm.controls;
     }
-    call() {
-        console.log(this.paymentAmount);
-    }
     createCode() {
         this.submitted = true;
         if (this.registrationForm.invalid) {
@@ -199,34 +196,44 @@ class OnlineRegistrationPage {
             console.log(data);
             if (data == true) {
                 this.userDetails.email = this.registrationForm.value.email;
-                this.paywithRazor();
+                this.us.razorpayOrder().subscribe(data => {
+                    console.log(data);
+                    if (data['message'] == 'success') {
+                        this.paywithRazor(data);
+                    }
+                    else {
+                        alert('some error occured');
+                    }
+                });
             }
             else {
                 alert('enter valid email address');
             }
         });
     }
-    paywithRazor() {
+    paywithRazor(data) {
         this.userDetails.name = this.registrationForm.value.name;
         this.userDetails.email = this.registrationForm.value.email;
         this.userDetails.phone = this.registrationForm.value.phone;
         this.userDetails.college = this.registrationForm.value.college;
         this.userDetails.rollno = this.registrationForm.value.rollno;
-        var paymentAmount = this.paymentAmount;
         var options = {
+            order_id: data['order']['id'],
             description: 'Payment',
             image: 'https://res.cloudinary.com/dmm4awbwm/image/upload/v1591517273/favicon_pbwxru.jpg',
             currency: this.currency,
-            key: this.razor_key,
-            amount: this.paymentAmount,
+            key: data['key'],
+            amount: Number(data['amount']),
             name: 'Ecficio',
+            handler: function (response) {
+            },
             prefill: {
                 email: this.registrationForm.value.email,
                 contact: this.registrationForm.value.phone,
                 name: this.registrationForm.value.name
             },
             theme: {
-                color: '#F37254'
+                color: '#F0D551'
             },
             modal: {
                 ondismiss: function () {
@@ -234,9 +241,10 @@ class OnlineRegistrationPage {
                 }
             }
         };
-        var successCallback = function (payment_id) {
-            this.userDetails.tid = payment_id;
-            this.userDetails.paymentAmount = paymentAmount;
+        options.handler = ((response) => {
+            console.log(response);
+            this.userDetails.tid = response.razorpay_payment_id;
+            this.userDetails.paymentAmount = Number(data['amount']);
             this.userDetails.paid = true;
             this.userDetails.timestamp = new Date();
             this.us.addUser(this.userDetails).subscribe((data) => {
@@ -251,19 +259,17 @@ class OnlineRegistrationPage {
                     alert('some error occured');
                 }
             });
-            //alert('payment_id: ' + payment_id);
-        };
-        var cancelCallback = function (error) {
-            alert(error.description + ' (Error ' + error.code + ')');
-        };
-        RazorpayCheckout.open(options, successCallback, cancelCallback);
+        });
+        var rzpy = new this.winRef.nativeWindow.Razorpay(options);
+        rzpy.open();
     }
 };
 OnlineRegistrationPage.ctorParameters = () => [
     { type: _ittop_service__WEBPACK_IMPORTED_MODULE_3__["IttopService"] },
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["AlertController"] },
     { type: _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormBuilder"] },
-    { type: _angular_router__WEBPACK_IMPORTED_MODULE_5__["Router"] }
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_5__["Router"] },
+    { type: _window_ref_service__WEBPACK_IMPORTED_MODULE_6__["WindowRefService"] }
 ];
 OnlineRegistrationPage = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({

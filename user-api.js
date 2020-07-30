@@ -12,6 +12,38 @@ const { resolveSoa } = require('dns');
 var htmlToPDF = fs.readFileSync('./views/pdf.html','utf8');
 ObjectId = require('mongodb').ObjectID;
 
+    //key_id: 'rzp_test_yQUpJ9NOuz50ve',
+    //key_secret: 'ICNKyz1WwED4IUNhb12OgVGu'
+razor_key = 'rzp_live_HBsAG1DLWCctVK';
+//razor_key = 'rzp_test_yQUpJ9NOuz50ve';
+//razorpay
+let Razorpay=require('razorpay');
+const RazorpayConfig={
+    key_id: 'rzp_live_HBsAG1DLWCctVK',
+    key_secret: 'MRgAIEkkW4szBiDUC9dWXjrM'
+}
+
+testRouter.use(exp.json());
+testRouter.post('/razorpayOrder',(req,res,next)=>{
+    var razorinstance=new Razorpay(RazorpayConfig);
+    var options = {
+        amount: 100,  // amount in the smallest currency unit
+        currency: "INR",
+        receipt: "order_rcptid_11",
+        payment_capture: '1'
+      };
+    razorinstance.orders.create(options,function(razor_error, order){
+        if(razor_error){
+            console.log(razor_error);
+            res.send({message: 'error'});
+        }
+        else{
+            console.log(order);
+            res.send({message: 'success',order: order,key: razor_key,amount: options.amount});
+        }
+    });
+});
+
 //mail necessity
 var readHTMLFile = function(path, callback) {
     fs.readFile(path, {encoding: 'utf-8'}, function (err, html) {
@@ -324,7 +356,8 @@ testRouter.post('/addUser',(req,res,next)=>{
                                             receipt: count,
                                             clg: req.body.college,
                                             rollno: req.body.rollno,
-                                            date: req.body.timestamp
+                                            date: req.body.timestamp,
+                                            tid: req.body.tid
                                         },
                                         path: "./users_pdf/"+count+"_"+req.body.name+".pdf"
                                     };
