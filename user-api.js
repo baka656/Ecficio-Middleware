@@ -12,15 +12,15 @@ const { resolveSoa } = require('dns');
 var htmlToPDF = fs.readFileSync('./views/pdf.html','utf8');
 ObjectId = require('mongodb').ObjectID;
 
-    //key_id: 'rzp_test_yQUpJ9NOuz50ve',
-    //key_secret: 'ICNKyz1WwED4IUNhb12OgVGu'
-razor_key = 'rzp_live_HBsAG1DLWCctVK';
-//razor_key = 'rzp_test_yQUpJ9NOuz50ve';
+    //key_id: '',
+    //key_secret: ''
+razor_key = '';
+//razor_key = '';
 //razorpay
 let Razorpay=require('razorpay');
 const RazorpayConfig={
-    key_id: 'rzp_live_HBsAG1DLWCctVK',
-    key_secret: 'MRgAIEkkW4szBiDUC9dWXjrM'
+    key_id: '',
+    key_secret: ''
 }
 
 testRouter.use(exp.json());
@@ -29,7 +29,7 @@ testRouter.post('/razorpayOrder',(req,res,next)=>{
     var options = {
         amount: 100,  // amount in the smallest currency unit
         currency: "INR",
-        receipt: "order_rcptid_11",
+        receipt: "",
         payment_capture: '1'
       };
     razorinstance.orders.create(options,function(razor_error, order){
